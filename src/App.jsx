@@ -51,7 +51,7 @@ const App = ( ) => {
       .create(noteObject)
       .then(response =>{
         setNotes(notes.concat(response.data))
-        setNotes('')
+        setNewNote('')
       })
     
       console.log(notes);
@@ -75,7 +75,8 @@ const App = ( ) => {
     // propiedades de note. Es decir, toma todas las propiedades de note (como id, text, date, etc.) 
     // y las copia en un nuevo objeto.
     const changedNote = {...note, important: !note.important}
-    axios.put(url, changedNote).then(response => {
+    noteService
+      .update(id, changedNote).then(response => {
       setNotes(notes.map(note => note.id !== id ? note : response.data))
     })
   }
